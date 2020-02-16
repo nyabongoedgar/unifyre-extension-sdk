@@ -13,7 +13,7 @@ export class WalletRemoteRequestClient implements Injectable {
 
   async getRequest(requestId: string): Promise<WalletRemoteRequest|undefined> {
     ValidationUtils.isTrue(!!requestId, '"requestId" must be provided');
-    const res = await this.api.get(`extension/getRequest/${requestId}`, {}) as any;
+    const res = await this.api.get(`extension/walletProxy/getRequest/${requestId}`, {}) as any;
     if (!res) { return undefined; }
     const request = {
       appId: res.policyData.EXTENSION_APP_ID,
@@ -28,12 +28,14 @@ export class WalletRemoteRequestClient implements Injectable {
 
   async sendResponse(response: WalletRemoteResponse): Promise<boolean> {
     ValidationUtils.isTrue(!!response.requestId, '"requestId" must be provided');
-    const res = await this.api.post(`extension/sendResponse/${response.requestId}`, response);
+    const res = await this.api.post(`extension/walletProxy/setResponse/${response.requestId}`, response);
     return !!res;
   }
 
-  async getAppLink(appId: string, walletAccountGroupId?: string, walletCurrency?: string, queryParams?: any): Promise<string> {
-    return await this.api.post(`extension/appSignInRedirect`, {
-      appId, walletAccountGroupId, walletCurrency, queryString: createQueryString(queryParams || {})}) as string;
+  async getAppLink(appId: string, walletAccountGroupId?: string, walletCurrency?: string, queryParams?: any): Promise<string|undefined> {
+    const res =  await this.api.post(`extension/appSignInRedirect`, {
+      appId, walletAccountGroupId, walletCurrency, queryString: createQueryString(queryParams || {})}) as any;
+    if (!res) { return undefined; }
+    return res.redirectUrl;
   }
 }

@@ -87,7 +87,7 @@ class ServerApi {
                 command;
             const bearerToken = this.context.getBearerToken();
             const sessionHeader = this.context.getSession();
-            this.log.debug(`calling api '${this.host}'${fullCommand}'`);
+            this.log.debug(`calling api '${this.host}${fullCommand}'`, data);
             let res;
             try {
                 // const metricCommand = command.split('/')[0];
@@ -103,10 +103,11 @@ class ServerApi {
                 if (extraHeaders) {
                     Object.keys(extraHeaders).forEach(k => { headers[k] = extraHeaders[k]; });
                 }
+                this.log.debug('Headers are', headers);
                 // @ts-ignore
                 res = yield fetch(this.host + fullCommand, {
                     method: method,
-                    headers: extraHeaders,
+                    headers: headers,
                     body: JSON.stringify(data),
                 });
                 // metric.done();

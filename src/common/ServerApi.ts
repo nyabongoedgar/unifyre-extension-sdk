@@ -81,7 +81,7 @@ export class ServerApi implements Injectable {
 
     const bearerToken = this.context.getBearerToken();
     const sessionHeader = this.context.getSession();
-    this.log.debug(`calling api '${this.host!}'${fullCommand}'`);
+    this.log.debug(`calling api '${this.host!}${fullCommand}'`, data);
 
     let res: any;
     try {
@@ -98,11 +98,12 @@ export class ServerApi implements Injectable {
       if (extraHeaders) {
         Object.keys(extraHeaders).forEach(k => {headers[k] = extraHeaders[k];});
       }
+      this.log.debug('Headers are', headers);
 
       // @ts-ignore
       res = await fetch(this.host + fullCommand, {
         method: method,
-        headers: extraHeaders,
+        headers: headers,
         body: JSON.stringify(data),
       });
       // metric.done();

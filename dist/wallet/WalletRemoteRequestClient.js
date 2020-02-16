@@ -21,7 +21,7 @@ class WalletRemoteRequestClient {
     getRequest(requestId) {
         return __awaiter(this, void 0, void 0, function* () {
             ferrum_plumbing_1.ValidationUtils.isTrue(!!requestId, '"requestId" must be provided');
-            const res = yield this.api.get(`extension/getRequest/${requestId}`, {});
+            const res = yield this.api.get(`extension/walletProxy/getRequest/${requestId}`, {});
             if (!res) {
                 return undefined;
             }
@@ -39,15 +39,19 @@ class WalletRemoteRequestClient {
     sendResponse(response) {
         return __awaiter(this, void 0, void 0, function* () {
             ferrum_plumbing_1.ValidationUtils.isTrue(!!response.requestId, '"requestId" must be provided');
-            const res = yield this.api.post(`extension/sendResponse/${response.requestId}`, response);
+            const res = yield this.api.post(`extension/walletProxy/setResponse/${response.requestId}`, response);
             return !!res;
         });
     }
     getAppLink(appId, walletAccountGroupId, walletCurrency, queryParams) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.api.post(`extension/appSignInRedirect`, {
+            const res = yield this.api.post(`extension/appSignInRedirect`, {
                 appId, walletAccountGroupId, walletCurrency, queryString: createQueryString(queryParams || {})
             });
+            if (!res) {
+                return undefined;
+            }
+            return res.redirectUrl;
         });
     }
 }
