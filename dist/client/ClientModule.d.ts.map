@@ -1,0 +1,1 @@
+{"version":3,"file":"ClientModule.d.ts","sourceRoot":"","sources":["../../src/client/ClientModule.ts"],"names":[],"mappings":"AAAA,OAAO,EAAC,SAAS,EAAE,MAAM,EAAC,MAAM,iBAAiB,CAAC;AAElD,qBAAa,YAAa,YAAW,MAAM;IACnC,WAAW,CAAC,CAAC,EAAE,SAAS,GAAG,OAAO,CAAC,IAAI,CAAC;CAE/C"}
