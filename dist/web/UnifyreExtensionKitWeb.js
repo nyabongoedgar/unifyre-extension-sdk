@@ -40,7 +40,7 @@ class UnifyreExtensionKitWeb {
     }
     static initialize(appId, apiUrl) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!UnifyreExtensionKitWeb._container) {
+            if (!!UnifyreExtensionKitWeb._container) {
                 return UnifyreExtensionKitWeb._container;
             }
             const c = new ferrum_plumbing_1.Container();

@@ -27,7 +27,7 @@ export class UnifyreExtensionKitWeb {
   }
 
   static async initialize(appId: string, apiUrl: string) {
-    if (!UnifyreExtensionKitWeb._container) {
+    if (!!UnifyreExtensionKitWeb._container) {
       return UnifyreExtensionKitWeb._container;
     }
     const c = new Container();
