@@ -11,19 +11,19 @@ const PROD_ENDPOINT_UNIFYRE = 'https://tbe.ferrumnetwork.io/api/';
 export class UnifyreExtensionKitWeb {
   private static _container: Container | undefined;
   static async initializeTest(appId: string) {
-    return this.initialize(appId, TEST_ENDPOINT);
+    return UnifyreExtensionKitWeb.initialize(appId, TEST_ENDPOINT);
   }
 
   static async initializeDev(appId: string) {
-    return this.initialize(appId, DEV_ENDPOINT);
+    return UnifyreExtensionKitWeb.initialize(appId, DEV_ENDPOINT);
   }
 
   static async initializeKudi(appId: string) {
-    return this.initialize(appId, PROD_ENDPOINT_KUDI);
+    return UnifyreExtensionKitWeb.initialize(appId, PROD_ENDPOINT_KUDI);
   }
 
   static async initializeUnifyre(appId: string) {
-    return this.initialize(appId, PROD_ENDPOINT_UNIFYRE);
+    return UnifyreExtensionKitWeb.initialize(appId, PROD_ENDPOINT_UNIFYRE);
   }
 
   static async initialize(appId: string, apiUrl: string) {

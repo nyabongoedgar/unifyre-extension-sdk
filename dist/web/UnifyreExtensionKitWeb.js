@@ -20,22 +20,22 @@ const PROD_ENDPOINT_UNIFYRE = 'https://tbe.ferrumnetwork.io/api/';
 class UnifyreExtensionKitWeb {
     static initializeTest(appId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.initialize(appId, TEST_ENDPOINT);
+            return UnifyreExtensionKitWeb.initialize(appId, TEST_ENDPOINT);
         });
     }
     static initializeDev(appId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.initialize(appId, DEV_ENDPOINT);
+            return UnifyreExtensionKitWeb.initialize(appId, DEV_ENDPOINT);
         });
     }
     static initializeKudi(appId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.initialize(appId, PROD_ENDPOINT_KUDI);
+            return UnifyreExtensionKitWeb.initialize(appId, PROD_ENDPOINT_KUDI);
         });
     }
     static initializeUnifyre(appId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.initialize(appId, PROD_ENDPOINT_UNIFYRE);
+            return UnifyreExtensionKitWeb.initialize(appId, PROD_ENDPOINT_UNIFYRE);
         });
     }
     static initialize(appId, apiUrl) {
