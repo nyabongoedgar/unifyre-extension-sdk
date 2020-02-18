@@ -1,5 +1,5 @@
 import {Injectable, JsonRpcRequest, JsonRpcResponse} from "ferrum-plumbing";
-import {ServerApi} from "../common/ServerApi";
+import {ServerApi, ServerApiError} from "../common/ServerApi";
 import {AsyncRequestRepeater} from "./AsyncRequestRepeater";
 
 export class WalletJsonRpcClient implements Injectable {
@@ -14,9 +14,16 @@ export class WalletJsonRpcClient implements Injectable {
    * simple request/response.
    */
   async call(appId: string, req: JsonRpcRequest): Promise<JsonRpcResponse> {
-    const requestId = await this.api.post('extension/walletProxy/createRequest', req);
+    const {requestId} = this.jsonRpcRes(await this.api.post('extension/walletProxy/createRequest', req));
     return this.repeater.registerPromise(async (id: number) => {
       return await this.api.get(`extension/walletProxy/getResponse/${requestId}`, {}) as JsonRpcResponse;
     });
+  }
+
+  jsonRpcRes(res: any) {
+    if (!!res.serverError) {
+      throw new ServerApiError(500, res.serverError);
+    }
+    return res.data;
   }
 }

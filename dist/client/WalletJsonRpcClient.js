@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const ServerApi_1 = require("../common/ServerApi");
 class WalletJsonRpcClient {
     constructor(api, repeater) {
         this.api = api;
@@ -22,11 +23,17 @@ class WalletJsonRpcClient {
      */
     call(appId, req) {
         return __awaiter(this, void 0, void 0, function* () {
-            const requestId = yield this.api.post('extension/walletProxy/createRequest', req);
+            const { requestId } = this.jsonRpcRes(yield this.api.post('extension/walletProxy/createRequest', req));
             return this.repeater.registerPromise((id) => __awaiter(this, void 0, void 0, function* () {
                 return yield this.api.get(`extension/walletProxy/getResponse/${requestId}`, {});
             }));
         });
+    }
+    jsonRpcRes(res) {
+        if (!!res.serverError) {
+            throw new ServerApi_1.ServerApiError(500, res.serverError);
+        }
+        return res.data;
     }
 }
 exports.WalletJsonRpcClient = WalletJsonRpcClient;

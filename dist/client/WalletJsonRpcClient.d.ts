@@ -12,5 +12,6 @@ export declare class WalletJsonRpcClient implements Injectable {
      * simple request/response.
      */
     call(appId: string, req: JsonRpcRequest): Promise<JsonRpcResponse>;
+    jsonRpcRes(res: any): any;
 }
 //# sourceMappingURL=WalletJsonRpcClient.d.ts.map
