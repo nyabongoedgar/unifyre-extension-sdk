@@ -106,6 +106,7 @@ export class ServerApi implements Injectable {
         headers: headers,
         body: JSON.stringify(data),
       });
+      this.log.info("Result is ", res);
       // metric.done();
     } catch (e) {
       const errorText = ServerApiError.fromError(e);
