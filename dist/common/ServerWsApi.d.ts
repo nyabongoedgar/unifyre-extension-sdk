@@ -14,7 +14,7 @@ export declare class ServerWsApi implements Injectable {
     constructor(baseUri: string, publisher: WsEventPublisher, logFac: LoggerFactory);
     __name__(): string;
     init(authToken: string): Promise<void>;
-    state(): 'OPEN' | 'CONNECTING' | 'CLOSED' | 'CLOSING' | undefined;
+    state(): 'OPEN' | 'CONNECTING' | 'CLOSED' | 'CLOSING' | 'UNKNOWN' | undefined;
     private reconnect;
     private onOpen;
     private onMessage;

@@ -49,7 +49,13 @@ class ServerWsApi {
         if (!this.socket) {
             return;
         }
-        return this.socket.readyState;
+        switch (this.socket.readyState) {
+            case 0: return 'CONNECTING';
+            case 1: return 'OPEN';
+            case 2: return 'CLOSING';
+            case 3: return 'CLOSED';
+            default: return 'UNKNOWN';
+        }
     }
     reconnect() {
         if (this.socket) {
@@ -65,30 +71,36 @@ class ServerWsApi {
         }
         // @ts-ignore
         this.socket = new WebSocket(`${this.baseUri}?authorization=${this.lastToken}`);
+        this.log.info('Connecting to ', this.baseUri);
         this.socket.onopen = this.onOpen;
         this.socket.onmessage = this.onMessage;
         this.socket.onclose = this.onClose;
         this.socket.onerror = this.onError;
     }
     onOpen(e) {
+        this.log.info('Connected to ', this.baseUri);
         // nothing
     }
     onMessage(msg) {
+        // this.log.info('MSG GOT', msg.data);
         if (msg && msg.data) {
-            if (msg === 'PONG') {
+            if (msg.data === 'PONG') {
                 this.lastPong = Date.now();
             }
             else {
                 // Process the message
                 try {
-                    const jMsg = JSON.parse(msg);
+                    const jMsg = JSON.parse(msg.data);
                     if (!jMsg.type) {
-                        throw new Error("No type");
+                        this.log.error(`endpoing ${this.baseUri} received a message with no type: ${msg.data}`);
                     }
-                    this.publisher.pubWsEvent(jMsg);
+                    else {
+                        // this.log.info('ABOUT TO PUBLISH EVENT', jMsg);
+                        this.publisher.pubWsEvent(jMsg);
+                    }
                 }
                 catch (e) {
-                    this.log.error('Bad message received: ', msg, e);
+                    this.log.error('Bad message received: ', msg.data, e);
                 }
             }
         }
@@ -99,14 +111,17 @@ class ServerWsApi {
     }
     onError(e) {
         // Try to reconnect.
-        this.log.error('Connection error', e.message);
+        this.log.error('Connection error', this.baseUri, e.message);
     }
     ping() {
         if (this.state() === 'OPEN') {
             this.socket.send('PING');
         }
-        if ((Date.now() - this.lastPong) > PING_PERIOD * 3) {
-            this.reconnect();
+        else if (this.state() !== 'CONNECTING') {
+            if ((Date.now() - this.lastPong) > (PING_PERIOD * 6)) {
+                this.log.error('Took more than 3 PING periods and no PONG!');
+                this.reconnect();
+            }
         }
     }
 }
