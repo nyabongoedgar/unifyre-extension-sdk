@@ -43,7 +43,7 @@ class UnifyreExtensionKitClient {
             const prof = this.getUserProfile();
             const fromAddress = getAddressForCurrency(prof, currency, accountGroupId);
             const res = yield this.walletProxy.call(this.appId, {
-                command: 'sendMoney',
+                command: 'REQUEST_SEND_MONEY',
                 data: {
                     userId: prof.userId,
                     appId: prof.appId,
@@ -63,7 +63,7 @@ class UnifyreExtensionKitClient {
             ferrum_plumbing_1.ValidationUtils.isTrue(SignableMessages_1.SIGNABLE_MESSAGE_TYPES.has(messageType), 'Invalid "messageType"');
             const prof = this.getUserProfile();
             const res = yield this.walletProxy.call(this.appId, {
-                command: 'sendMoney',
+                command: messageType === 'PLAIN_TEXT' ? 'REQUEST_SIGN_CLEAN_MESSAGE' : 'REQUEST_SIGN_CUSTOM_MESSAGE',
                 data: {
                     userId: prof.userId,
                     appId: prof.appId,

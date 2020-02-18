@@ -9,6 +9,7 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // Common
 __export(require("./common/ServerApi"));
+__export(require("./common/ServerWsApi"));
 __export(require("./common/model/SignableMessages"));
 // Client
 __export(require("./client/ClientModule"));

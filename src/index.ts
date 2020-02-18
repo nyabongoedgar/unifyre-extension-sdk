@@ -5,8 +5,10 @@
 
 // Common
 export * from './common/ServerApi';
+export * from './common/ServerWsApi';
 export * from './common/model/SignableMessages';
 export * from './common/model/Types';
+export * from './common/model/WebSocketMessage';
 
 // Client
 export * from './client/ClientModule';

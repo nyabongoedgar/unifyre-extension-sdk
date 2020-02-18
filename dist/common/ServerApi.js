@@ -86,7 +86,7 @@ class ServerApi {
                     .join('&') :
                 command;
             const bearerToken = this.context.getBearerToken();
-            const sessionHeader = this.context.getSession();
+            const sessionHeader = this.context.getLegacySession();
             this.log.debug(`calling api '${this.host}${fullCommand}'`, data);
             let res;
             try {

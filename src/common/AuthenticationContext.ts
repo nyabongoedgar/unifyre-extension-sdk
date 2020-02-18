@@ -2,7 +2,8 @@ import {Injectable} from "ferrum-plumbing";
 
 export class AuthenticationContext implements Injectable {
   private _bearerToken: string | undefined;
-  private _session: string | undefined;
+  private _wsToken: string | undefined;
+  private _legacySession: string | undefined;
 
   __name__(): string { return 'AuthenticationContext'; }
 
@@ -10,15 +11,19 @@ export class AuthenticationContext implements Injectable {
     this._bearerToken = token;
   }
 
-  setSession(session: string) {
-    this._session = session;
+  setLegacySession(session: string) {
+    this._legacySession = session;
+  }
+
+  setWsToken(token: string) {
+    this._wsToken = token;
   }
 
   getBearerToken(): string | undefined {
     return this._bearerToken;
   }
 
-  getSession(): string | undefined {
-    return this._session;
+  getLegacySession(): string | undefined {
+    return this._legacySession;
   }
 }

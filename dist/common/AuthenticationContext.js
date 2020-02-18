@@ -5,14 +5,17 @@ class AuthenticationContext {
     setBearerAuth(token) {
         this._bearerToken = token;
     }
-    setSession(session) {
-        this._session = session;
+    setLegacySession(session) {
+        this._legacySession = session;
+    }
+    setWsToken(token) {
+        this._wsToken = token;
     }
     getBearerToken() {
         return this._bearerToken;
     }
-    getSession() {
-        return this._session;
+    getLegacySession() {
+        return this._legacySession;
     }
 }
 exports.AuthenticationContext = AuthenticationContext;

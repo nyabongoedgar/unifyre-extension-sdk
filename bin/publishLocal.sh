@@ -3,7 +3,7 @@
 
 declare -a arr=(
   "../unifyre-native-wallet-components/node_modules/unifyre-extension-sdk/"
-  "../unifyre-wallets/WebWallet/node_modules/unifyre-extension-sdk/"
+  "../unifyre-wallet-core/node_modules/unifyre-extension-sdk/"
 )
 
 echo "Compiling"
