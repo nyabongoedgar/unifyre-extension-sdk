@@ -12,7 +12,7 @@ export interface RemoteSendMoneyRequest {
 
 export interface RemoteSignRequest {
   accountGroupId?: string;
-  messageHes: HexString;
+  messageHex: HexString;
   messageType: SignableMessageType;
   description?: string;
 }
@@ -20,7 +20,7 @@ export interface RemoteSignRequest {
 export interface WalletRemoteRequest {
   requestId: string;
   appId: string;
-  requestType: 'SIGN_CLEAR'|'SIGN_TYPED'|'SEND_MONEY';
+  requestType: 'REQUEST_SIGN_CLEAN_MESSAGE'|'REQUEST_SIGN_TYPED_MESSAGE'|'REQUEST_SEND_MONEY'|'REQUEST_SIGN_CUSTOM_MESSAGE';
   request: RemoteSendMoneyRequest | RemoteSignRequest
 }
 
@@ -28,4 +28,6 @@ export interface WalletRemoteResponse {
   requestId: string;
   appId: string;
   response: SendMoneyResponse|SignedMessageResponse;
+  rejected: boolean;
+  reason?: string;
 }

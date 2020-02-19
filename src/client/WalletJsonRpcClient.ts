@@ -15,9 +15,15 @@ export class WalletJsonRpcClient implements Injectable {
    */
   async call(appId: string, req: JsonRpcRequest): Promise<JsonRpcResponse> {
     const {requestId} = this.jsonRpcRes(await this.api.post('extension/walletProxy/createRequest', req));
-    return this.repeater.registerPromise(async (id: number) => {
-      return await this.api.get(`extension/walletProxy/getResponse/${requestId}`, {}) as JsonRpcResponse;
+    const pRes = await this.repeater.registerPromise(async (id: number) => {
+      const res = await this.api.get(`extension/walletProxy/getResponse/${requestId}`, {}) as any;
+      if (res && res.data && Object.keys(res.data).length) {
+        return res;
+      } else {
+        return
+      }
     });
+    return pRes;
   }
 
   jsonRpcRes(res: any) {

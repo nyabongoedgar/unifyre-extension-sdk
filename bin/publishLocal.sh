@@ -4,6 +4,7 @@
 declare -a arr=(
   "../unifyre-native-wallet-components/node_modules/unifyre-extension-sdk/"
   "../unifyre-wallet-core/node_modules/unifyre-extension-sdk/"
+  "../unifyre-extension-examples/examples/wyre-widet/node_modules/unifyre-extension-sdk/"
 )
 
 echo "Compiling"

@@ -110,7 +110,7 @@ class ServerApi {
                     headers: headers,
                     body: JSON.stringify(data),
                 });
-                this.log.info("Result is ", res);
+                // this.log.info("Result is ", res);
                 // metric.done();
             }
             catch (e) {

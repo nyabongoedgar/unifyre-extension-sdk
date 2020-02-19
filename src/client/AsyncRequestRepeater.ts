@@ -62,6 +62,7 @@ export class AsyncRequestRepeater implements Injectable {
         }
         if (!!res) {
           val.onSuccess(res);
+          deleteList.push(key);
         }
       } catch (e) {
         deleteList.push(key);

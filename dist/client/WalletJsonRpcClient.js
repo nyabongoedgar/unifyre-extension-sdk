@@ -23,10 +23,22 @@ class WalletJsonRpcClient {
      */
     call(appId, req) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log('CALLING ', req);
             const { requestId } = this.jsonRpcRes(yield this.api.post('extension/walletProxy/createRequest', req));
-            return this.repeater.registerPromise((id) => __awaiter(this, void 0, void 0, function* () {
-                return yield this.api.get(`extension/walletProxy/getResponse/${requestId}`, {});
+            const pRes = yield this.repeater.registerPromise((id) => __awaiter(this, void 0, void 0, function* () {
+                const res = yield this.api.get(`extension/walletProxy/getResponse/${requestId}`, {});
+                console.log('INTERMEDIARY RESULT IS ', res);
+                if (res && res.data && Object.keys(res.data).length) {
+                    console.log('RECEIVED RESULT');
+                    return res;
+                }
+                else {
+                    console.log('NOTHING YET');
+                    return;
+                }
             }));
+            console.log('FINALLY GOT SOME RES', pRes);
+            return pRes;
         });
     }
     jsonRpcRes(res) {

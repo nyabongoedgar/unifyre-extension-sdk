@@ -43,7 +43,9 @@ class AsyncRequestRepeater {
                 const val = this.requests.get(key);
                 try {
                     const res = yield val.handler(key);
+                    console.log('REFRESH_RESULT', res);
                     if (!res && Date.now() - val.time > (val.timeout || exports.ASYNC_API_REQUEST_TIMEOUT)) {
+                        console.log('REFRESH_RESULT TIMED OUT');
                         deleteList.push(key);
                         try {
                             val.onTimeout();
@@ -51,7 +53,9 @@ class AsyncRequestRepeater {
                         catch (e) { }
                     }
                     if (!!res) {
+                        console.log('REFRESH_RESULT ON SUCCESS', val.onSuccess, res);
                         val.onSuccess(res);
+                        deleteList.push(key);
                     }
                 }
                 catch (e) {
