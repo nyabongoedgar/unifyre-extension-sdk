@@ -2,10 +2,9 @@ import {HexString} from "ferrum-plumbing";
 
 export interface SendMoneyResponse {
   transactionId: string;
-  transaction: any;
 }
 
 export interface SignedMessageResponse {
-  signatureHex: HexString;
+  signature: { r: HexString, s: HexString, v: number};
   publicKeyHex: HexString;
 }

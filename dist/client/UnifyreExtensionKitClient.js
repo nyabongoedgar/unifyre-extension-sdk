@@ -73,7 +73,6 @@ class UnifyreExtensionKitClient {
                     description,
                 },
             });
-            console.log('RESULT OF CALLING SIGN IS ', res);
             return res.data;
         });
     }
