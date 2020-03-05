@@ -57,7 +57,7 @@ class UnifyreExtensionKitClient {
             return res.data;
         });
     }
-    sign(messageHex, messageType, description, accountGroupId) {
+    sign(network, messageHex, messageType, description, accountGroupId) {
         return __awaiter(this, void 0, void 0, function* () {
             ferrum_plumbing_1.ValidationUtils.isTrue(!!messageHex, '"message" must be provided');
             ferrum_plumbing_1.ValidationUtils.isTrue(SignableMessages_1.SIGNABLE_MESSAGE_TYPES.has(messageType), 'Invalid "messageType"');
@@ -65,6 +65,7 @@ class UnifyreExtensionKitClient {
             const res = yield this.walletProxy.call(this.appId, {
                 command: messageType === 'PLAIN_TEXT' ? 'REQUEST_SIGN_CLEAN_MESSAGE' : 'REQUEST_SIGN_CUSTOM_MESSAGE',
                 data: {
+                    network,
                     userId: prof.userId,
                     appId: prof.appId,
                     accountGroupId,

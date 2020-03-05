@@ -1,4 +1,4 @@
-import { HexString, Injectable } from "ferrum-plumbing";
+import { HexString, Injectable, Network } from "ferrum-plumbing";
 import { ServerApi } from "../common/ServerApi";
 import { WalletJsonRpcClient } from "./WalletJsonRpcClient";
 import { AppUserProfile } from "./model/AppUserProfile";
@@ -14,7 +14,7 @@ export declare class UnifyreExtensionKitClient implements Injectable {
     signInWithToken(token: string): Promise<void>;
     getUserProfile(): AppUserProfile;
     sendMoney(toAddress: string, currency: string, amount: string, accountGroupId?: string): Promise<SendMoneyResponse>;
-    sign(messageHex: HexString, messageType: SignableMessageType, description?: string, accountGroupId?: string): Promise<SignedMessageResponse>;
+    sign(network: Network, messageHex: HexString, messageType: SignableMessageType, description?: string, accountGroupId?: string): Promise<SignedMessageResponse>;
     getTransaction(transactionId: string): Promise<any>;
 }
 //# sourceMappingURL=UnifyreExtensionKitClient.d.ts.map

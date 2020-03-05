@@ -1,4 +1,4 @@
-import {HexString} from "ferrum-plumbing";
+import {HexString, Network} from "ferrum-plumbing";
 import {SignableMessageType} from "../../common/model/SignableMessages";
 import {SendMoneyResponse, SignedMessageResponse} from "../../common/model/Types";
 
@@ -11,6 +11,7 @@ export interface RemoteSendMoneyRequest {
 }
 
 export interface RemoteSignRequest {
+  network: Network;
   accountGroupId?: string;
   messageHex: HexString;
   messageType: SignableMessageType;

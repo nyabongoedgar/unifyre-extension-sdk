@@ -1,4 +1,4 @@
-import {HexString, Injectable, JsonRpcRequest, ValidationUtils} from "ferrum-plumbing";
+import {HexString, Injectable, JsonRpcRequest, Network, ValidationUtils} from "ferrum-plumbing";
 import {ServerApi} from "../common/ServerApi";
 import {WalletJsonRpcClient} from "./WalletJsonRpcClient";
 import {AppUserProfile} from "./model/AppUserProfile";
@@ -54,7 +54,8 @@ export class UnifyreExtensionKitClient implements Injectable {
     return res.data as SendMoneyResponse;
   }
 
-  async sign(messageHex: HexString,
+  async sign(network: Network,
+             messageHex: HexString,
              messageType: SignableMessageType,
              description?: string,
              accountGroupId?: string): Promise<SignedMessageResponse> {
@@ -64,6 +65,7 @@ export class UnifyreExtensionKitClient implements Injectable {
     const res = await this.walletProxy.call(this.appId, {
       command: messageType === 'PLAIN_TEXT' ? 'REQUEST_SIGN_CLEAN_MESSAGE' : 'REQUEST_SIGN_CUSTOM_MESSAGE',
       data: {
+        network,
         userId: prof.userId,
         appId: prof.appId,
         accountGroupId,
