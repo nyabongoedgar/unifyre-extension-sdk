@@ -15,7 +15,7 @@ const WebLocalJsonStorage_1 = require("./WebLocalJsonStorage");
 const UnifyreExtensionKitClient_1 = require("../client/UnifyreExtensionKitClient");
 const TEST_ENDPOINT = 'http://localhost:9000/api/';
 const DEV_ENDPOINT = 'https://tbe.ferrumnetwork.io/api/';
-const PROD_ENDPOINT_KUDI = 'https://minimal-cloud.com/api/'; // TODO:
+const PROD_ENDPOINT_KUDI = 'https://minimal-cloud.com/api/'; //TODO:
 const PROD_ENDPOINT_UNIFYRE = 'https://tbe.ferrumnetwork.io/api/';
 class UnifyreExtensionKitWeb {
     static initializeTest(appId) {

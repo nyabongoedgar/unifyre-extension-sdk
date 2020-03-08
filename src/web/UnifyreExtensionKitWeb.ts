@@ -5,7 +5,7 @@ import {UnifyreExtensionKitClient} from "../client/UnifyreExtensionKitClient";
 
 const TEST_ENDPOINT = 'http://localhost:9000/api/';
 const DEV_ENDPOINT = 'https://tbe.ferrumnetwork.io/api/';
-const PROD_ENDPOINT_KUDI = 'https://minimal-cloud.com/api/'; // TODO:
+const PROD_ENDPOINT_KUDI = 'https://minimal-cloud.com/api/'; //TODO:
 const PROD_ENDPOINT_UNIFYRE = 'https://tbe.ferrumnetwork.io/api/';
 
 export class UnifyreExtensionKitWeb {
