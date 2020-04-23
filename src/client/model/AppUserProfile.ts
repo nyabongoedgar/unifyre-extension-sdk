@@ -7,22 +7,14 @@ export interface AddressDetails {
   addressWithChecksum?: string;
   humanReadableAddress: string;
   addressType: string;
+  balance: string;
+  pendingForWithdrawal: string;
+  pendingForDeposit: string;
 }
 
 export interface UserAccountGroup {
   id: string;
   addresses: {[key: string]: AddressDetails};
-}
-
-export interface UserBalance {
-  accountId: string;
-  accountType: string;
-  address: string;
-  addressWithChecksum?: string;
-  currency: string;
-  balance: string;
-  pending: string;
-  lastModified: number;
 }
 
 export interface AppUserProfile {
@@ -31,5 +23,4 @@ export interface AppUserProfile {
   appId: string;
   email?: string;
   accountGroups: UserAccountGroup[];
-  balance: UserBalance[];
 }
