@@ -108,6 +108,12 @@ export class ServerWsApi implements Injectable {
   private onError(e: any) {
     // Try to reconnect.
     this.log.error('Connection error', this.baseUri, e.message);
+    // Stop reconnection of there is auth error
+    if ((e.message || '').indexOf(' 403') > 0) {
+      this.log.error('Websocket authentication error detected. Stopping PING/PONG');
+      clearInterval(this.interval);
+      this.interval = undefined;
+    }
   }
 
   private ping() {
