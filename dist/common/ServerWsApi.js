@@ -11,6 +11,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const ferrum_plumbing_1 = require("ferrum-plumbing");
 const PING_PERIOD = 5000;
+class WsConnectionEvents {
+}
+exports.WsConnectionEvents = WsConnectionEvents;
+WsConnectionEvents.OFFLINE = '__CONNECTION_OFFLINE__';
+WsConnectionEvents.ONLINE = '__CONNECTION_ONLINE__';
 class ServerWsApi {
     constructor(baseUri, publisher, logFac) {
         this.baseUri = baseUri;
@@ -65,6 +70,7 @@ class ServerWsApi {
             catch (e) { }
             this.socket = null;
         }
+        this.publisher.pubWsEvent({ type: WsConnectionEvents.OFFLINE, payload: {} });
         if (!this.lastToken) {
             this.log.info("Ignoring re-connect. No token found");
             return;
@@ -79,6 +85,7 @@ class ServerWsApi {
     }
     onOpen(e) {
         this.log.info('Connected to ', this.baseUri);
+        this.publisher.pubWsEvent({ type: WsConnectionEvents.ONLINE, payload: {} });
         // nothing
     }
     onMessage(msg) {

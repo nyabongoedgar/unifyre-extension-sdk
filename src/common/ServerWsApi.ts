@@ -3,6 +3,11 @@ import {WebSocketMessage} from "./model/WebSocketMessage";
 
 const PING_PERIOD = 5000;
 
+export class WsConnectionEvents {
+  static readonly OFFLINE = '__CONNECTION_OFFLINE__';
+  static readonly ONLINE = '__CONNECTION_ONLINE__';
+}
+
 export interface WsEventPublisher {
   pubWsEvent(msg: WebSocketMessage): void;
 }
@@ -58,6 +63,7 @@ export class ServerWsApi implements Injectable {
       try{this.socket.close();}catch (e) {}
       this.socket = null;
     }
+    this.publisher.pubWsEvent({ type: WsConnectionEvents.OFFLINE, payload: {} });
 
     if (!this.lastToken) {
       this.log.info("Ignoring re-connect. No token found");
@@ -75,6 +81,7 @@ export class ServerWsApi implements Injectable {
 
   private onOpen(e: any) {
     this.log.info('Connected to ', this.baseUri);
+    this.publisher.pubWsEvent({ type: WsConnectionEvents.ONLINE, payload: {} });
     // nothing
   }
 
